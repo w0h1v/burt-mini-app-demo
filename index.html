@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Burt Mini App Demo</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: var(--tg-theme-bg-color, #0f172a);
+      --text: var(--tg-theme-text-color, #e5e7eb);
+      --hint: var(--tg-theme-hint-color, #94a3b8);
+      --button: var(--tg-theme-button-color, #2563eb);
+      --button-text: var(--tg-theme-button-text-color, white);
+      --card: color-mix(in srgb, var(--bg) 85%, white 15%);
+    }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+    .wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    .card {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.15);
+    }
+    h1 { margin: 0 0 10px; font-size: 28px; }
+    p { line-height: 1.5; }
+    .muted { color: var(--hint); }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      background: rgba(0,0,0,.15);
+      border-radius: 12px;
+      padding: 12px;
+      font-size: 13px;
+    }
+    button {
+      border: 0;
+      background: var(--button);
+      color: var(--button-text);
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>🐙 Burt Mini App Demo</h1>
+      <p>This is a minimal real Telegram Mini App page for live testing.</p>
+      <p class="muted">It reads Telegram WebApp context, expands the app, and exposes a Main Button.</p>
+      <button id="show-user">Show init data</button>
+    </div>
+    <div class="card">
+      <div class="muted">Status</div>
+      <pre id="out">Waiting…</pre>
+    </div>
+  </div>
+  <script>
+    const tg = window.Telegram?.WebApp;
+    const out = document.getElementById('out');
+    function write(obj) {
+      out.textContent = typeof obj === 'string' ? obj : JSON.stringify(obj, null, 2);
+    }
+    if (!tg) {
+      write('Telegram WebApp runtime not detected. Open this inside Telegram.');
+    } else {
+      tg.ready();
+      tg.expand();
+      tg.MainButton.setText('Send demo payload');
+      tg.MainButton.show();
+      tg.MainButton.onClick(() => {
+        tg.sendData(JSON.stringify({ source: 'burt-mini-app-demo', at: new Date().toISOString() }));
+      });
+      write({
+        platform: tg.platform,
+        version: tg.version,
+        colorScheme: tg.colorScheme,
+        user: tg.initDataUnsafe?.user || null,
+        chat: tg.initDataUnsafe?.chat || null,
+        start_param: tg.initDataUnsafe?.start_param || null,
+      });
+    }
+    document.getElementById('show-user').addEventListener('click', () => {
+      if (!tg) return;
+      write({
+        initDataUnsafe: tg.initDataUnsafe,
+        themeParams: tg.themeParams,
+      });
+    });
+  </script>
+</body>
+</html>
