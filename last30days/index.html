@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Last30Days Research · Burt</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: var(--tg-theme-bg-color, #08111f);
+      --text: var(--tg-theme-text-color, #eef2ff);
+      --hint: var(--tg-theme-hint-color, #9aa8bd);
+      --button: var(--tg-theme-button-color, #2563eb);
+      --button-text: var(--tg-theme-button-text-color, #ffffff);
+      --secondary-bg: var(--tg-theme-secondary-bg-color, #111d2e);
+      --card: color-mix(in srgb, var(--secondary-bg) 88%, white 12%);
+      --border: color-mix(in srgb, var(--hint) 30%, transparent 70%);
+      --accent: #38bdf8;
+      --warn: #fbbf24;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(56,189,248,.22), transparent 34rem),
+        linear-gradient(180deg, var(--bg), color-mix(in srgb, var(--bg) 88%, black 12%));
+      color: var(--text);
+    }
+    .wrap { max-width: 760px; margin: 0 auto; padding: 18px; }
+    .hero, .card {
+      background: color-mix(in srgb, var(--card) 92%, transparent 8%);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      box-shadow: 0 20px 48px rgba(0,0,0,.24);
+    }
+    .hero { padding: 22px; margin-bottom: 14px; }
+    .card { padding: 16px; margin: 12px 0; }
+    .eyebrow { color: var(--accent); font-weight: 800; letter-spacing: .08em; text-transform: uppercase; font-size: 12px; }
+    h1 { margin: 8px 0 8px; font-size: clamp(28px, 8vw, 44px); line-height: 1; }
+    p { margin: 8px 0; line-height: 1.45; }
+    .muted { color: var(--hint); }
+    label { display: block; font-weight: 750; margin: 12px 0 7px; }
+    input[type="text"], select, textarea {
+      width: 100%; border: 1px solid var(--border); border-radius: 14px;
+      padding: 13px 14px; font: inherit; background: color-mix(in srgb, var(--bg) 78%, white 8%);
+      color: var(--text); outline: none;
+    }
+    textarea { min-height: 82px; resize: vertical; }
+    input:focus, select:focus, textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(56,189,248,.16); }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    @media (max-width: 560px) { .grid { grid-template-columns: 1fr; } }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip {
+      display: inline-flex; align-items: center; gap: 6px; padding: 9px 10px; border: 1px solid var(--border);
+      border-radius: 999px; background: rgba(255,255,255,.05); font-size: 14px;
+    }
+    .chip input { accent-color: var(--button); }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+    button {
+      border: 0; border-radius: 14px; padding: 13px 15px; font-weight: 800; cursor: pointer;
+      background: var(--button); color: var(--button-text); font: inherit;
+    }
+    button.secondary { background: color-mix(in srgb, var(--button) 14%, var(--secondary-bg)); color: var(--text); border: 1px solid var(--border); }
+    .preset { width: 100%; text-align: left; margin: 5px 0; }
+    pre {
+      white-space: pre-wrap; word-break: break-word; padding: 12px; border-radius: 14px;
+      background: rgba(0,0,0,.22); border: 1px solid rgba(255,255,255,.08); color: var(--text);
+      font-size: 13px; line-height: 1.45;
+    }
+    .pill { display:inline-block; border:1px solid var(--border); border-radius:999px; padding:5px 9px; color:var(--hint); font-size:12px; margin:3px 4px 0 0; }
+    .warn { color: var(--warn); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="eyebrow">Burt 🐙 · Research Mini App</div>
+      <h1>📰 Last30Days</h1>
+      <p>Ask Burt to research what people are saying across Reddit, X, YouTube, TikTok, Hacker News, Polymarket, GitHub, and the web.</p>
+      <p class="muted">Pick a focused topic. “Top stories” is usually too broad; “AI video tools” or “OpenAI vs Anthropic vs xAI” works better.</p>
+      <span class="pill">ScrapeCreators</span><span class="pill">xAI</span><span class="pill">Brave</span><span class="pill">OpenRouter</span>
+    </section>
+
+    <section class="card">
+      <label for="topic">Topic</label>
+      <input id="topic" type="text" placeholder="e.g., AI coding agents, Texas politics, OpenAI vs Anthropic vs xAI" autocomplete="off" />
+
+      <div class="grid">
+        <div>
+          <label for="depth">Depth</label>
+          <select id="depth">
+            <option value="quick">Quick scan</option>
+            <option value="normal" selected>Standard</option>
+            <option value="deep">Deep read</option>
+          </select>
+        </div>
+        <div>
+          <label for="days">Lookback</label>
+          <select id="days">
+            <option value="7">Last 7 days</option>
+            <option value="30" selected>Last 30 days</option>
+            <option value="90">Last 90 days</option>
+          </select>
+        </div>
+      </div>
+
+      <label>Sources</label>
+      <div class="chips" id="sources">
+        <label class="chip"><input type="checkbox" value="reddit" checked> Reddit</label>
+        <label class="chip"><input type="checkbox" value="x" checked> X</label>
+        <label class="chip"><input type="checkbox" value="youtube" checked> YouTube</label>
+        <label class="chip"><input type="checkbox" value="hackernews" checked> HN</label>
+        <label class="chip"><input type="checkbox" value="polymarket"> Polymarket</label>
+        <label class="chip"><input type="checkbox" value="github"> GitHub</label>
+        <label class="chip"><input type="checkbox" value="grounding" checked> Web</label>
+      </div>
+
+      <label for="notes">Extra instructions <span class="muted">optional</span></label>
+      <textarea id="notes" placeholder="e.g., focus on customer complaints, founder sentiment, or practical buying advice"></textarea>
+
+      <div class="actions">
+        <button id="send">Send to Burt</button>
+        <button class="secondary" id="copy">Copy prompt</button>
+        <button class="secondary" id="preview">Preview payload</button>
+      </div>
+      <p id="status" class="muted">Ready.</p>
+    </section>
+
+    <section class="card">
+      <div class="muted">Prompt preview</div>
+      <pre id="out">Choose a topic, then send it to Burt.</pre>
+    </section>
+
+    <section class="card">
+      <p class="muted"><span class="warn">Note:</span> This page submits a Telegram Web App payload when opened inside Telegram. If Telegram does not hand the payload to Burt’s gateway, use “Copy prompt” and paste it in chat.</p>
+    </section>
+  </div>
+
+  <script>
+    const tg = window.Telegram?.WebApp;
+    const els = {
+      topic: document.getElementById('topic'),
+      depth: document.getElementById('depth'),
+      days: document.getElementById('days'),
+      notes: document.getElementById('notes'),
+      out: document.getElementById('out'),
+      status: document.getElementById('status')
+    };
+
+    const presets = new URLSearchParams(location.search);
+    if (presets.get('topic')) els.topic.value = presets.get('topic');
+
+    function selectedSources() {
+      return Array.from(document.querySelectorAll('#sources input:checked')).map(x => x.value);
+    }
+    function payload() {
+      const topic = els.topic.value.trim();
+      const depth = els.depth.value;
+      const days = Number(els.days.value);
+      const sources = selectedSources();
+      const notes = els.notes.value.trim();
+      const prompt = `Run last30days for: ${topic}\nDepth: ${depth}\nLookback: ${days} days\nSources: ${sources.join(', ')}${notes ? `\nFocus: ${notes}` : ''}`;
+      return { type: 'last30days_request', source: 'burt-last30days-miniapp', topic, depth, days, sources, notes, prompt, at: new Date().toISOString() };
+    }
+    function render() {
+      const p = payload();
+      els.out.textContent = p.topic ? p.prompt : 'Choose a topic, then send it to Burt.';
+      if (tg) {
+        tg.MainButton.setText(p.topic ? 'Send to Burt' : 'Enter a topic first');
+        p.topic ? tg.MainButton.show() : tg.MainButton.hide();
+      }
+    }
+    function setStatus(text) { els.status.textContent = text; }
+    function send() {
+      const p = payload();
+      if (!p.topic) { setStatus('Add a topic first.'); els.topic.focus(); return; }
+      if (!p.sources.length) { setStatus('Pick at least one source.'); return; }
+      if (tg) {
+        tg.sendData(JSON.stringify(p));
+        setStatus('Sent to Telegram. You can close this Mini App.');
+      } else {
+        setStatus('Open inside Telegram to send, or use Copy prompt.');
+      }
+    }
+    async function copyPrompt() {
+      const p = payload();
+      if (!p.topic) { setStatus('Add a topic first.'); return; }
+      try {
+        await navigator.clipboard.writeText(p.prompt);
+        setStatus('Prompt copied. Paste it into Burt if needed.');
+      } catch (e) {
+        els.out.textContent = p.prompt;
+        setStatus('Copy failed; prompt is shown below.');
+      }
+    }
+
+    document.getElementById('send').addEventListener('click', send);
+    document.getElementById('copy').addEventListener('click', copyPrompt);
+    document.getElementById('preview').addEventListener('click', () => { els.out.textContent = JSON.stringify(payload(), null, 2); });
+    ['input', 'change'].forEach(evt => document.addEventListener(evt, render));
+
+    if (tg) {
+      tg.ready();
+      tg.expand();
+      tg.MainButton.onClick(send);
+    }
+    render();
+  </script>
+</body>
+</html>
