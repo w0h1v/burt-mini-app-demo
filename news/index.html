@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Last30Days News Briefing</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    :root{
+      color-scheme:dark light;
+      --bg:var(--tg-theme-bg-color,#07101e);
+      --fg:var(--tg-theme-text-color,#eef5ff);
+      --muted:var(--tg-theme-hint-color,#9fb0c7);
+      --card:var(--tg-theme-secondary-bg-color,#101c2d);
+      --button:var(--tg-theme-button-color,#38bdf8);
+      --buttonText:var(--tg-theme-button-text-color,#00111f);
+      --line:rgba(255,255,255,.12);
+      --good:#34d399;--mid:#fbbf24;--bad:#fb7185;--blue:#38bdf8;
+    }
+    *{box-sizing:border-box} body{margin:0;background:radial-gradient(circle at 10% -10%,rgba(56,189,248,.28),transparent 32rem),linear-gradient(180deg,var(--bg),#030712);color:var(--fg);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",Inter,Segoe UI,sans-serif;}
+    .wrap{max-width:900px;margin:0 auto;padding:18px 16px 80px}.hero{padding:24px 18px 18px}.kicker{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--blue)}h1{font-size:clamp(32px,9vw,58px);line-height:.94;margin:8px 0 10px}.lead{font-size:17px;line-height:1.45;color:var(--muted);max-width:760px}.meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.pill{border:1px solid var(--line);border-radius:999px;padding:7px 10px;background:rgba(255,255,255,.05);font-size:13px;color:var(--muted)}
+    .card{background:color-mix(in srgb,var(--card) 92%,transparent);border:1px solid var(--line);border-radius:22px;padding:18px;margin:12px 0;box-shadow:0 16px 40px rgba(0,0,0,.22)}.top{border-color:rgba(52,211,153,.35);background:linear-gradient(135deg,rgba(52,211,153,.12),rgba(56,189,248,.08)),var(--card)}.num{width:34px;height:34px;border-radius:12px;background:rgba(56,189,248,.18);display:inline-flex;align-items:center;justify-content:center;font-weight:900;color:var(--blue);margin-right:8px}.title{display:flex;align-items:center;font-size:21px;font-weight:850;margin:0 0 12px}.section{margin:12px 0}.label{font-size:12px;color:var(--muted);font-weight:850;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}.txt{line-height:1.48}.confidence{display:inline-flex;gap:6px;align-items:center;border-radius:999px;padding:6px 9px;font-size:12px;font-weight:800}.high{background:rgba(52,211,153,.14);color:var(--good)}.medium{background:rgba(251,191,36,.15);color:var(--mid)}.low{background:rgba(251,113,133,.14);color:var(--bad)}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:720px){.grid{grid-template-columns:1fr}}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}.actions{position:fixed;left:0;right:0;bottom:0;padding:10px 14px;background:linear-gradient(180deg,transparent,rgba(3,7,18,.94) 24%);display:flex;gap:10px;justify-content:center}.actions button,.actions a{border:0;border-radius:14px;padding:12px 14px;background:var(--button);color:var(--buttonText);font-weight:850;font-size:14px;text-decoration:none}.actions .secondary{background:rgba(255,255,255,.09);color:var(--fg);border:1px solid var(--line)}ul{padding-left:20px}li{margin:6px 0}.stamp{color:var(--muted);font-size:13px;margin-top:10px}.note{border-left:3px solid var(--blue);padding-left:12px;color:var(--muted)}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <div class="kicker">Burt 🐙 · Last30Days News Mode</div>
+      <h1>Actual news briefing</h1>
+      <p class="lead">This is the app page I should have sent: a readable current-news briefing built from headline search first, with Last30Days used as the reaction layer. Not the generic prompt launcher.</p>
+      <div class="meta"><span class="pill">Run: Jun 6, 2026 · 9:11 PM CT</span><span class="pill">Headline layer: Brave/Web</span><span class="pill">Reaction layer: Last30Days</span><span class="pill">Sources: Reuters/AP/CNN/Web + Reddit/X/HN</span></div>
+    </section>
+
+    <section class="card top">
+      <div class="title"><span class="num">1</span>Iran crisis, Hormuz risk, and oil-market spillover</div>
+      <div class="section"><div class="label">What happened</div><div class="txt">The strongest real-world cluster is the Iran conflict and its economic consequences. Headline search surfaced Iran, U.S./Israel/Iran tension, Hormuz, diplomacy, sanctions, and global-market impact.</div></div>
+      <div class="section"><div class="label">Why it matters</div><div class="txt">The practical concern is oil flows: Strait of Hormuz risk, Iranian exports/loadings, sanctions pressure, fuel prices, and second-order supply-chain effects.</div></div>
+      <div class="section"><div class="label">Public reaction</div><div class="txt">The Last30Days layer framed this less as abstract geopolitics and more as an oil/economy shock. People are arguing over blockade effects, Brent/oil spikes, gasoline/diesel inventories, and whether the conflict accelerates energy-security moves.</div></div>
+      <span class="confidence high">High confidence story · medium confidence social read</span>
+    </section>
+
+    <section class="card top">
+      <div class="title"><span class="num">2</span>Markets sold off as jobs data revived Fed fear</div>
+      <div class="section"><div class="label">What happened</div><div class="txt">Reuters/business results and the Last30Days run converged on the same story: strong May jobs data revived fears that the Fed will stay hawkish, and chip/tech stocks sold off hard.</div></div>
+      <div class="section"><div class="label">Why it matters</div><div class="txt">The market narrative is: good jobs data means fewer rate-cut hopes, which pressures high-multiple tech and semiconductor names after a big run-up.</div></div>
+      <div class="section"><div class="label">Public reaction</div><div class="txt">Online reaction focused on shock numbers: Nasdaq down sharply, large losses in chip stocks, NVDA/Micron/AMD-type names hit, and skepticism about whether the jobs data is trustworthy or hiding sector weakness.</div></div>
+      <span class="confidence high">High confidence · cleanest Last30Days match</span>
+    </section>
+
+    <div class="grid">
+      <section class="card"><div class="title"><span class="num">3</span>AI compute infrastructure arms race</div><div class="section"><div class="label">What happened</div><div class="txt">Headline search surfaced a Reuters/business item around SpaceX landing a Google AI compute deal after an Anthropic pact, ahead of IPO context.</div></div><div class="section"><div class="label">Why it matters</div><div class="txt">AI compute is becoming strategic infrastructure. Non-traditional cloud players are trying to become capacity providers.</div></div><div class="note">Needs a dedicated follow-up query for better reaction: <b>SpaceX Google AI compute Anthropic pact reaction</b></div><br><span class="confidence medium">Medium-high headline · weaker reaction</span></section>
+      <section class="card"><div class="title"><span class="num">4</span>GLP-1 health story keeps broadening</div><div class="section"><div class="label">What happened</div><div class="txt">Headline search surfaced obesity-drug and GLP-1 related health stories: sleep-apnea benefits and genetic variants that may affect GLP-1 response.</div></div><div class="section"><div class="label">Why it matters</div><div class="txt">The GLP-1 story is expanding from weight loss into sleep apnea, diabetes precision medicine, and broader metabolic health.</div></div><span class="confidence medium">Medium · headline only in this run</span></section>
+    </div>
+
+    <section class="card">
+      <div class="title"><span class="num">5</span>U.S. diplomatic capacity under strain</div>
+      <div class="section"><div class="label">What happened</div><div class="txt">CNN/web headline search surfaced a story about scores of U.S. diplomats saying they were forced out while global crises multiply.</div></div>
+      <div class="section"><div class="label">Why it matters</div><div class="txt">This connects to the larger instability theme: the U.S. may be dealing with more crises while diplomatic capacity is being questioned.</div></div>
+      <span class="confidence medium">Medium headline · low reaction signal</span>
+    </section>
+
+    <section class="card">
+      <div class="title">Bottom line</div>
+      <ul>
+        <li>The actual top news signal was <b>Iran/oil/geopolitics</b>.</li>
+        <li>The cleanest source-plus-reaction match was <b>markets/chips/Fed fears</b>.</li>
+        <li>AI compute and GLP-1 were real headline candidates, but need narrower Last30Days follow-up queries.</li>
+        <li>The generic “top stories” query was the wrong interface. This page is the news-mode result.</li>
+      </ul>
+      <div class="stamp">Raw local outputs: /Users/orie/Documents/Last30Days/news-mode-20260606-211156/</div>
+    </section>
+  </main>
+  <div class="actions"><button onclick="window.scrollTo({top:0,behavior:'smooth'})">Back to top</button><a class="secondary" href="../last30days/">Prompt launcher</a></div>
+  <script>
+    const tg = window.Telegram?.WebApp;
+    if (tg) { tg.ready(); tg.expand(); tg.MainButton.setText('Close briefing'); tg.MainButton.show(); tg.MainButton.onClick(()=>tg.close()); }
+  </script>
+</body>
+</html>
